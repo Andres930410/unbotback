@@ -55,7 +55,7 @@ class BuildingsController < ApplicationController
 
   def information
     entities = params["data"]
-    informatio = ""
+    information_value = ""
     is_correct = false
     entities.each do |e|
       if is_correct
@@ -64,25 +64,25 @@ class BuildingsController < ApplicationController
       type = e["type"].gsub(/\s+/, "")
       case type
       when "information::age_un"
-        information = "age"
+        information_value = "age"
         is_correct = true
       when "information::name_un"
-        information = "name"
+        information_value = "name"
         is_correct = true
       when "information::history"
-        information = "history"
+        information_value = "history"
         is_correct = true
       when "information::number_un"
-        information = "number"
+        information_value = "number"
         is_correct = true
       when "information::year"
-        information = "year"
+        information_value = "year"
         is_correct = true
       when "information::close_to"
-        information = "close"
+        information_value = "close"
         is_correct = true
       when "julio_zorra"
-        information = "julio"
+        information_value = "julio"
         is_correct = true
       end
     end
@@ -90,7 +90,7 @@ class BuildingsController < ApplicationController
     if @value
       render json: { result:{
           status: "ok",
-          message: set_message(information)
+          message: set_message(information_value)
         }
       }
     else
