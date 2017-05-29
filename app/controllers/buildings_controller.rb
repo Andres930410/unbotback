@@ -161,6 +161,12 @@ class BuildingsController < ApplicationController
         message = "Los edificios cercanos son: #{@value.close_to}"
       when "julio"
         message = "Busca en tu corazon"
+      else
+        if @value.history
+          message = "La historia del edificio es:\n#{@value.history}"
+        else
+          message = "No tenemos informacion relacionado con la historia del edificio"
+        end
       end
       message
     end
