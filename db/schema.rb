@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528221411) do
+ActiveRecord::Schema.define(version: 20170528214321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "buildings", force: :cascade do |t|
-    t.integer  "number",     null: false
+    t.string   "number",     null: false
     t.string   "name",       null: false
     t.string   "nickname"
     t.integer  "year"
@@ -24,21 +24,9 @@ ActiveRecord::Schema.define(version: 20170528221411) do
     t.decimal  "lng",        null: false
     t.text     "history"
     t.text     "image"
+    t.text     "close_to"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "routes", force: :cascade do |t|
-    t.integer  "building_one_id"
-    t.integer  "building_two_id"
-    t.text     "image"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["building_one_id", "building_two_id"], name: "index_routes_on_building_one_id_and_building_two_id", unique: true, using: :btree
-    t.index ["building_one_id"], name: "index_routes_on_building_one_id", using: :btree
-    t.index ["building_two_id"], name: "index_routes_on_building_two_id", using: :btree
-  end
-
-  add_foreign_key "routes", "buildings", column: "building_one_id"
-  add_foreign_key "routes", "buildings", column: "building_two_id"
 end

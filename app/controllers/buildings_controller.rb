@@ -46,6 +46,6 @@ class BuildingsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def building_params
-      params.require(:building).permit(:number, :name, :nickname, :year, :lat, :lng, :history, :image)
+      params.require(:building).permit(:number, :name, :nickname, :year, :lat, :lng, :history, :image,:close_to)
     end
 end
