@@ -62,14 +62,14 @@ class BuildingsController < ApplicationController
       end
     end
     if @value
-      render json: data: {
+      render json: {result: {
         status: "ok",
-        data: @value.to_json
-      }, status: :ok
+        data: @value
+      }}, status: :ok
     else
-      render json: data: {
+      render json: {result: {
         status: "error"
-      }, status: :ok
+      }}  , status: :ok
     end
   end
 
