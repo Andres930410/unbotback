@@ -20,6 +20,6 @@ class Building < ApplicationRecord
   end
 
   def self.building_by_nickname(nickname)
-    where("name LIKE ?","%#{nickname.downcase}%").first
+    where("nickname LIKE ?","%#{nickname.downcase}%").first
   end
 end
