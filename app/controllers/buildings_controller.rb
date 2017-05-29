@@ -104,7 +104,7 @@ class BuildingsController < ApplicationController
 
   def route
     entities = params["data"]
-    types = []
+    places = []
     entities.each do |e|
       type = e["type"]
       case type
