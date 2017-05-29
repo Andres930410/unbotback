@@ -39,7 +39,38 @@ class BuildingsController < ApplicationController
   end
 
   def location
-    
+    entities = params["data"]
+    is_correct = false
+    entities.each do |e|
+      if is_correct
+        break
+      end
+      type = e["type"]
+      case type
+      when "building::nickname"
+        v = e["entity"]
+        is_correct = true
+        @value = Building.building_by_nickname(v)
+      when "builtin.number"
+        v = e["resolution"]["value"]
+        is_correct = true
+        @value = Building.building_by_number(v)
+      when "building::name"
+        v = e["entity"]
+        is_correct = true
+        @value = Building.building_by_name(v)
+      end
+    end
+    if @value
+      render json: data: {
+        status: "ok"
+        data: @value
+      }
+    else
+      render json: data: {
+        status: "error"
+      }
+    end
   end
 
   private
