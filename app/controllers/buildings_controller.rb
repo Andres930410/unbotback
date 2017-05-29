@@ -87,7 +87,7 @@ class BuildingsController < ApplicationController
       end
     end
     set_value(entities)
-    if @value
+    if @value || information_value == "julio"
       render json: { result:{
           status: "ok",
           message: set_message(information_value)
@@ -100,6 +100,39 @@ class BuildingsController < ApplicationController
       }
     end
 
+  end
+
+  def route
+    entities = params["data"]
+    types = []
+    entities.each do |e|
+      type = e["type"]
+      case type
+      when "building::nickname"
+        v = Building.building_by_nickname(e["entity"])
+      when "builtin.number"
+        v = Building.building_by_number(e["resolution"]["value"])
+      when "building::name"
+        v = Building.building_by_name(e["entity"])
+      end
+      if v
+        places<<v
+      end
+    end
+    if places.count == 2
+      render json: {
+        result: {
+          status: "ok",
+          message: "https://www.google.com/maps/dir/?api=1&origin=#{places[0].lat},#{places[0].lng}&destination=#{places[1].lat},#{places[1].lng}&travelmode=walking"
+        }
+      }
+    else
+      render json: {
+        result: {
+          status: "error"
+        }
+      }
+    end
   end
 
   private
