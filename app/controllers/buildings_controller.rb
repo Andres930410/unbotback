@@ -66,6 +66,9 @@ class BuildingsController < ApplicationController
       when "information::age_un"
         information_value = "age"
         is_correct = true
+      when "information::nickname_un"
+        information_value = "nickname"
+        is_correct = true
       when "information::name_un"
         information_value = "name"
         is_correct = true
@@ -171,6 +174,8 @@ class BuildingsController < ApplicationController
       age = ["La edad del edificio es:","Los años que tienen este edificio es:","por el momento el edificio tiene:","Los años pasan, pero por ahora este edificio tiene:","Es un poco viejo este edificio tiene:"]
       number = ["El numbero es:","Tal vez lo puedas recordar como:","El numero del edificio es:","Aprendete este numero te sera muy util:","Son solo 3 numeros recuerdalo como:"]
       year = ["El año de apertura edificio es:","El edificio fue construido en el año:","Empezo a funcionar en:","Inicio en:","Tiene mucha historia, imaginate que empezo en:"]
+      nickname = ["el apodo del edifico es:","tambie lo puede llamar:","llamalo de esta manera:","intente de esta forma:"]
+      name = ["el nombre del edficio es:","intenta llamandolo:","que tal de esta forma:"]
       case information
       when "age"
         if @value.year
@@ -179,7 +184,14 @@ class BuildingsController < ApplicationController
           message = "No tenemos informacion acerca de la edad del edificio"
         end
       when "name"
-        message = "El nombre del edificio es: #{@value.name}"
+        message = "#{name.sample} #{@value.name}"
+      when "nickname"
+        if @value.nickname
+          message = "#{nickname.sample} #{@value.nickname}"
+        else
+          message = "Este edificio no tiene apodo"
+        end
+
       when "history"
         if @value.history
           message = "#{history.sample}\n#{@value.history}"
